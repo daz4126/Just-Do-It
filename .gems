@@ -3,5 +3,4 @@ dm-core
 slim
 sass
 dm-postgres-adapter
-dm-migrations
-dm-validations
+data_mapper
