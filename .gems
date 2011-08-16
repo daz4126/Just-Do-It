@@ -1,5 +1,5 @@
 sinatra
-mongoid
-bson
+datamapper
+dm-postgres-adapter
 slim
 sass
