@@ -1,6 +1,5 @@
 sinatra
-dm-core
+mongoid
+bson
 slim
 sass
-dm-postgres-adapter
-data_mapper

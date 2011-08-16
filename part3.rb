@@ -34,15 +34,15 @@ post '/:id' do
   redirect '/'
 end
 
+delete '/task/:id' do
+  Task.get(params[:id]).destroy
+  redirect '/'
+end
+
 put '/task/:id' do
   task = Task.get params[:id]
   task.completed_at = task.completed_at.nil? ? Time.now : nil
   task.save
-  redirect '/'
-end
-
-delete '/task/:id' do
-  Task.get(params[:id]).destroy
   redirect '/'
 end
 
@@ -73,7 +73,7 @@ html
 @@index
 form.new action="/new/list" method="POST"
   input type="text" name="list[name]"
-  input type="submit" value="+ List"
+  input type="submit" value="Add List >>"
 ul.lists
   - @lists.each do |list|
     == slim :list, locals: { list: list }
@@ -101,18 +101,58 @@ li.task id=task.id class=(task.completed_at.nil? ? "" : "completed")
     input type="submit" value="&times;"   
     
 @@styles
-body{font:11px/1 Arial, Helvetica, sans-serif;}
-.completed{text-decoration: line-through;}
-.lists,.tasks{padding:0;list-style:none;overflow:hidden;}
-.list{width:18%;margin:10px 1%;float:left;position:relative;
-form.destroy{position:absolute;right:0;top:0;display:none;margin:0;padding:0}
-&:hover form.destroy{display:block;}
-form.new{input{width:80%;display:block;margin:0 auto;}}
-h2{text-align:center;margin:0;}}
-.task{overflow:hidden;border-bottom:dotted 1px #ccc;padding:0;position:relative;padding:2px 0 2px 28px;
-form.update{position:absolute;bottom:2px;left:0;
-input{background:white;color:white;padding:0 2px;border:solid 1px gray;cursor:pointer;}}
-&.completed form.update input{color:#000;}
-form.delete{display:inline;
-input{color:#fff;background:none;cursor:pointer;border:none;}}
- &:hover form.delete input{color:#000;}}
+.completed{
+  text-decoration: line-through;
+  }
+
+.tasks{
+  padding:0;
+  list-style:none;
+  }
+
+.task{
+  position:relative;
+  padding:2px 0 2px 28px;
+  border-bottom: dotted 1px #ccc;
+}
+
+form.update{
+  position:absolute;
+  bottom:2px;
+  left:0;
+  }
+form.update input{
+  background:white;
+  color:white;
+  padding:0 2px;
+  border:solid 1px gray;
+  cursor:pointer;
+}
+
+.tasks li.completed form.update input{
+  color:#000;
+  }
+
+form.delete{
+  display:inline;
+  }
+  
+form.delete input{
+  background:none;
+  cursor:pointer;
+  border:none;
+  }
+  
+.lists{
+  padding:0;
+  list-style:none;
+  overflow:hidden;
+  }
+  
+.list{
+  float: left;
+  width:23%;
+  margin:0 1%;
+  border-top:solid 5px #ccc;
+  }
+
