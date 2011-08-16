@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'slim'
 require 'sass'
-require 'data_mapper'
+require 'datamapper'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
 
