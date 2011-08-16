@@ -20,7 +20,7 @@ class List
   has n, :tasks, :constraint => :destroy  
 end
 
-DataMapper.finalize.auto_migrate!
+DataMapper.finalize
 
 get('/styles.css'){ content_type 'text/css', :charset => 'utf-8' ; scss :styles }
 
