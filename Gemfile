@@ -1,3 +1,4 @@
+source :gemcutter
 gem "sinatra"
 gem "datamapper"
 gem "slim"
