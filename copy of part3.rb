@@ -61,11 +61,11 @@ __END__
 doctype html
 html
   head
-    meta charset="utf-8"
-    title Just Do It
-    link rel="stylesheet" media="screen, projection" href="/styles.css"
-    /[if lt IE 9]
-      script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"
+  meta charset="utf-8"
+  title Just Do It
+  link rel="stylesheet" media="screen, projection" href="/styles.css"
+  /[if lt IE 9]
+    script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"
   body
     h1 Just Do It!
     == yield
@@ -80,7 +80,7 @@ ul.lists
     
 @@list
 li.list
-  h1= list.name
+  h2= list.name
   form.new action="/#{list.id}" method="POST"
     input type="text" name="task[name]"
   ul.tasks
