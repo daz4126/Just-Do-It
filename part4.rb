@@ -182,7 +182,7 @@ form.update{
   left:0;
   input{
     background: white;
-    color: transparent;
+    color: white;
     padding:0 2px;
     border:solid 1px #ccc;
     cursor:pointer;
@@ -215,8 +215,8 @@ form.delete input{
 .list{
   float: left;
   position: relative;
-  width:22%;
-  margin:0 1%;
+  width:21%;
+  margin:0 1% 20px;
   padding: 0 1% 8px;
   border-top: solid 5px $green;
   background: rgba(#fff,0.6);
