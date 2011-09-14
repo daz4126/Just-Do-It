@@ -95,10 +95,13 @@ li.task id=task.id class=(task.completed_at.nil? ? "" : "completed")
   = task.name
   form.update action="/task/#{task.id}" method="POST"
     input type="hidden" name="_method" value="PUT"
-    input type="submit" value="&#10003;"
+    -if task.completed_at.nil?
+      input type="submit" value="  " title="Complete Task"
+    -else
+      input type="submit" value="&#10003;" title="Uncomplete Task"
   form.delete action="/task/#{task.id}" method="POST"
     input type="hidden" name="_method" value="DELETE"
-    input type="submit" value="&times;"   
+    input type="submit" value="&times;" title="Delete Task"   
     
 @@styles
 .completed{

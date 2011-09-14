@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source :rubygems
 gem "sinatra"
 gem "datamapper"
 gem "slim"

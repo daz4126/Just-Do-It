@@ -1,9 +1,4 @@
-set :title, "Just Do It!"
-set :fonts, %w[ Pacifico Slackey Coda Gruppo Bevan Corben ]
-
 enable :inline_templates
-
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
 
 class Task
   include DataMapper::Resource
@@ -96,66 +91,67 @@ li.task id=task.id class=(task.completed_at.nil? ? "" : "completed")
   = task.name
   form.update action="/task/#{task.id}" method="POST"
     input type="hidden" name="_method" value="PUT"
-    input type="submit" value="&#10003;"
+    -if task.completed_at.nil?
+      input type="submit" value="  " title="Complete Task"
+    -else
+      input type="submit" value="&#10003;" title="Uncomplete Task"
   form.delete action="/task/#{task.id}" method="POST"
     input type="hidden" name="_method" value="DELETE"
-    input type="submit" value="&times;"   
+    input type="submit" value="&times;" title="Delete Task"  
     
 @@styles
-$orange:#fcc647;
-$blue:#477dfc;
-$green:#47FD6B;
+$orange:#D78123;
+$blue:#1E1641;
+$green:#02d330;
+$grey: #999;
 
-$background:lighten($blue,10%);
-$logo-color:$green;
-$logo-font:"Slackey",sans-serif;
-$heading-color:$blue;
-$heading-font:"Pacifico",sans-serif;
+$background:$blue;
+$logo-color:white;
+$logo-font:"Anton",sans-serif;
+$heading-color:$orange;
+$heading-font:"Anton",sans-serif;
 
-
-@mixin cicada-stripes($color:#ccc){
-background-color: $color;
-background-image: -webkit-linear-gradient(0, rgba(255,255,255,.07) 50%, transparent 50%),
-  -webkit-linear-gradient(0, rgba(255,255,255,.13) 50%, transparent 50%),
-  -webkit-linear-gradient(0, transparent 50%, rgba(255,255,255,.17) 50%),
-  -webkit-linear-gradient(0, transparent 50%, rgba(255,255,255,.19) 50%);
--webkit-background-size: 13px, 29px, 37px, 53px;
+@mixin button($color){
+    background:$color;
+    border: 2px solid darken($color,15%);
+    cursor: pointer;
+    color: #fff;
+    width: 150px;
+    margin-left:4px;
 }
 
 body{
-  @include cicada-stripes($background);
+  background:$background;
   padding:0;
   margin:0;
   } 
 
 h1.logo{
   font-family: $logo-font;
-  font-size: 48px;
+  font-size: 24px;
   color:$logo-color;
-  text-shadow: 1px 1px 1px rgba(#000,0.7);
-  margin: 0;
-  padding: 0;
-  padding-left: 1em;
-  float:left;
+  padding:64px 0 0;
+  margin: 0 auto;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: normal;
+  letter-spacing: 0.3em;
+  background: transparent url(/logo.png) 50% 0 no-repeat;
   }
 
 .new-list{
-  float:left;
+  margin: 0 auto;
   padding: 10px;
+  width: 424px;
   input{
-    border:#ccc 1px solid;
-    border-radius: 16px;
     padding: 4px 8px;
+    font-size: 24px;
+    border:none;
+    font-weight: bold;
+    width: 250px;
     }
   .button{
-    background:$orange;
-    border:none;
-    cursor: pointer;
-    color: #fff;
-    font-size: 24px;
-    font-weight: bold;
-    position: relative;
-    left: -1em;
+    @include button($orange);
     }
   }
 
@@ -184,13 +180,16 @@ form.update{
     background: white;
     color: white;
     padding:0 2px;
-    border:solid 1px #ccc;
+    border:solid 1px $grey;
     cursor:pointer;
+    width:20px;
+    height:20px;
     }
   }
 
 .tasks li.completed form.update input{
   color:$green;
+  font-weight: bold;
   }
 
 form.delete{
@@ -219,12 +218,17 @@ form.delete input{
   margin:0 1% 20px;
   padding: 0 1% 8px;
   border-top: solid 5px $green;
-  background: rgba(#fff,0.6);
+  background: #fff;
+  background: rgba(#fff,0.7);
   padding-bottom: 20px;
 
   h1{  
     text-align:center;
     font-family:$heading-font;
+    font-weight: normal;
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color:$heading-color;
     margin:0;
     }
@@ -240,15 +244,14 @@ form.delete input{
     top:2px;
     right:2px;
     background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    border-radius:50%;
+    border: 1px solid $grey;
+    color: $grey;
     font-size:16px;
     opacity:0.6;
     &:hover{
       opacity:1;
       background: #fff;
-      color: $blue;
+      color: $green;
       }
     } 
   }
