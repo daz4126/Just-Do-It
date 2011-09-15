@@ -1,0 +1,10 @@
+li.list
+  h1= list.name
+  form.new action="/#{list.id}" method="POST"
+    input type="text" name="task[name]"
+  ul.tasks
+    - list.tasks.each do |task|
+      == slim :task, locals: { task: task }
+  form.destroy action="/list/#{list.id}" method="POST" title="Delete this list"
+    input type="hidden" name="_method" value="DELETE"
+    input type="submit" value="&times;"
